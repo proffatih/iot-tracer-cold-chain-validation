@@ -1,0 +1,62 @@
+{
+  "cell_mAh": 2600.0,
+  "cell_Wh": 9.62,
+  "i_active_mA": 38.0,
+  "t_active_s": 3.0,
+  "i_display_mA": 22.0,
+  "t_display_s": 0.6,
+  "i_sleep_mA": 0.007,
+  "i_leak_mA": 0.09027777777777778,
+  "i_mean_measured_mA": 11.6,
+  "implied_by_duty_column_mA": 0.21895799999999999,
+  "inconsistency_factor": 52.97819673179331,
+  "idle_current_solved_mA": 11.456740442655937,
+  "idle_vs_sleep_ratio": 1636.6772060937053,
+  "rows": [
+    {
+      "interval_min": 5,
+      "measured_regime_mA": 11.743259557344064,
+      "measured_regime_h": 221.40360496196286,
+      "measured_regime_d": 9.225150206748452,
+      "gated_regime_mA": 0.5211937777777778,
+      "gated_regime_h": 4988.547658964122,
+      "gated_regime_d": 207.85615245683843
+    },
+    {
+      "interval_min": 10,
+      "measured_regime_mA": 11.6,
+      "measured_regime_h": 224.13793103448276,
+      "measured_regime_d": 9.339080459770114,
+      "gated_regime_mA": 0.3092357777777778,
+      "gated_regime_h": 8407.824019212956,
+      "gated_regime_d": 350.3260008005398
+    },
+    {
+      "interval_min": 15,
+      "measured_regime_mA": 11.552246814218648,
+      "measured_regime_h": 225.0644434639232,
+      "measured_regime_d": 9.377685144330133,
+      "gated_regime_mA": 0.23858311111111113,
+      "gated_regime_h": 10897.669947765697,
+      "gated_regime_d": 454.069581156904
+    },
+    {
+      "interval_min": 30,
+      "measured_regime_mA": 11.504493628437293,
+      "measured_regime_h": 225.99864748268539,
+      "measured_regime_d": 9.416610311778557,
+      "gated_regime_mA": 0.16793044444444444,
+      "gated_regime_h": 15482.600600513177,
+      "gated_regime_d": 645.1083583547157
+    },
+    {
+      "interval_min": 60,
+      "measured_regime_mA": 11.480617035546613,
+      "measured_regime_h": 226.46866383137822,
+      "measured_regime_d": 9.436194326307426,
+      "gated_regime_mA": 0.13260411111111112,
+      "gated_regime_h": 19607.2352373858,
+      "gated_regime_d": 816.968134891075
+    }
+  ]
+}

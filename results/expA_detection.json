@@ -1,0 +1,37 @@
+{
+  "date": "2026-11-03",
+  "window_min": 15,
+  "baseline_window": [
+    "14:55",
+    "15:15"
+  ],
+  "baseline": {
+    "T_mean": 10.976190476190476,
+    "T_sd": 0.12307474269828632,
+    "T_threshold": 11.345414704285336,
+    "slope_mean": 510.6974789915966,
+    "slope_sd": 39.096518316975086,
+    "slope_threshold": 627.9870339425219,
+    "k_sigma": 3.0,
+    "consecutive": 2
+  },
+  "detection": {
+    "breach_at": "15:15",
+    "temperature_alarm": "15:17",
+    "temperature_latency_min": 2.0,
+    "co2_slope_alarm": "15:19",
+    "co2_slope_latency_min": 4.0
+  },
+  "persistence": {
+    "T_baseline_mean": 10.976190476190476,
+    "T_final_mean": 11.190909090909091,
+    "T_recovered_within_C": 0.2147186147186151,
+    "co2_at_breach": 1807.0,
+    "co2_final": 3014.3636363636365,
+    "observed_rise_ppm": 1207.3636363636365,
+    "counterfactual_rise_ppm": 766.0462184873949,
+    "excess_ppm": 441.3174178762416,
+    "excess_noise_sd_ppm": 58.64477747546263,
+    "excess_sigma": 7.525263746816872
+  }
+}

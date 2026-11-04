@@ -1,0 +1,57 @@
+{
+  "date": "2026-11-03",
+  "node_phase_A": {
+    "T_inf": 10.25000000000001,
+    "tau": 19.70031817569132,
+    "T0": 22.117930381299907,
+    "r2": 0.970260212620362,
+    "n": 66,
+    "t90_min": 45.36983275861711,
+    "window": [
+      "14:10",
+      "15:15"
+    ],
+    "T_observed_end": 11.3,
+    "approach_pct": 91.56626506024102
+  },
+  "reference_phase_A": {
+    "T_inf": 0.0,
+    "tau": 107.96952593141627,
+    "T0": 9.155618929959445,
+    "r2": 0.5331559623813806,
+    "n": 65,
+    "t90_min": 248.65381822005168,
+    "window": [
+      "14:10",
+      "15:15"
+    ],
+    "note": "not a time constant: store air is compressor-cycled, first-order model does not apply"
+  },
+  "node_phase_C": {
+    "T_inf": 6.899999999999983,
+    "tau": 31.30802560005084,
+    "T0": 22.229959915957398,
+    "r2": 0.9992738702684212,
+    "n": 46,
+    "t90_min": 72.10238295691708,
+    "window": [
+      "16:00",
+      "16:45"
+    ],
+    "T_observed_end": 10.6,
+    "approach_pct": 75.16778523489924
+  },
+  "reference_phase_C": {
+    "T_inf": 0.0,
+    "tau": 20.676297988645835,
+    "T0": 19.767658057279743,
+    "r2": 0.9904295804340262,
+    "n": 45,
+    "t90_min": 47.617514267851355,
+    "window": [
+      "16:00",
+      "16:45"
+    ],
+    "note": "not a time constant: store air is compressor-cycled, first-order model does not apply"
+  }
+}
