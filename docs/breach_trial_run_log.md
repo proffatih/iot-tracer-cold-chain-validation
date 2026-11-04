@@ -3,7 +3,10 @@
 **Date:** 2026-11-03
 **Node:** 7CDFA1FE05B5, sampling interval 60 s
 **Reference instrument:** Extech SD800, placed beside the jar, moved with it through all three phases
-**Container:** 1.7 L sealed glass jar (screw lid, no penetrations), headspace 1.4 L
+**Container:** 1.7 L sealed glass jar (screw lid, no penetrations); headspace taken as
+1.65 L, the nominal volume less the volume displaced by the produce (13.49 g ≈ 13 mL)
+and by the node assembly (≈ 40 mL). Not verified by filling; carry about 10 % on the
+absolute respiration rates, none on Q10, which is a ratio of slopes.
 **Load:** Agaricus bisporus, whole, unwashed, stem on, on greaseproof paper on the jar floor
 **Node placement:** suspended from the lid, 5-10 cm above the load, sensor vent unobstructed
 
@@ -24,8 +27,10 @@ Mushroom mass: 13.49 g (three whole caps, stems on, unwashed)
 
 ## Files
 
-- `data/A_breach_node.csv`   — node record (SCD41 CO2, T, RH), 60 s
-- `data/A_breach_extech.csv` — Extech SD800 record, same window
+- `data/node_7CDFA1FE05B5_breach_2026-11-03.csv` — node record (SCD41 CO2, T, RH), 60 s
+- `data/reference_extech_sd800_2026-11-03.tsv`  — Extech SD800 record; only the rows
+  dated 2026/11/03 belong to this trial, earlier blocks are leftover records written
+  with the instrument clock unset
 
 ## Notes
 

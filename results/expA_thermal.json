@@ -24,8 +24,7 @@
     "window": [
       "14:10",
       "15:15"
-    ],
-    "note": "not a time constant: store air is compressor-cycled, first-order model does not apply"
+    ]
   },
   "node_phase_C": {
     "T_inf": 6.899999999999983,
@@ -51,7 +50,6 @@
     "window": [
       "16:00",
       "16:45"
-    ],
-    "note": "not a time constant: store air is compressor-cycled, first-order model does not apply"
+    ]
   }
 }

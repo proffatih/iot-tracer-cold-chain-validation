@@ -18,6 +18,9 @@ numbers and figures in the paper. No value in the paper is entered by hand.
 | `refrigerator _7CDFA1FE05B5_05102026.csv` | 2026-10-02 to 2026-10-04 run in a domestic refrigerator with no produce present: the control condition, and the source of the compressor-cycle and step-response results. Four separate logging blocks appended end to end. |
 | `parsed_05102026_two_streams.csv` | The same record split into its blocks and labelled. |
 | `fridge_steady_window.csv` | The steady 31.6 h window used for the compressor-cycle statistics. |
+| `EXP C_7CDFA1FE05B5_t0_t1.csv` | Self-heating run 1, 2026-11-04 11:23–12:12. Board beside the reference in still room air, switched on at the start of the record. |
+| `EXP C cold_7CDFA1FE05B5.csv` | Self-heating run 2, 2026-11-04 13:20–14:17, the same procedure two hours later with the room at a different temperature. |
+| `reference_extech_sd800_2026-11-04.tsv` | Extech SD800 log covering both self-heating runs and the interval between them. Earlier dated blocks are leftover records written with the instrument clock unset. |
 
 ### `code/`
 
@@ -28,6 +31,9 @@ numbers and figures in the paper. No value in the paper is entered by hand.
 | `analyze_expA_detection.py` | Rolling-window alarm latency for both channels, and the CO₂ excess that persists after the temperature has recovered. |
 | `analyze_expA_thermal.py` | First-order fits for the thermal time constant of the sealed package. |
 | `energy_model.py` | Mean current and projected endurance against sampling interval; also resolves the internal inconsistency in the published per-mode energy table. |
+| `analyze_expC.py` | Self-heating offset, calibration offset and still-air time constant from the two runs above, with the consistency test that justifies reading the power-on sample as the calibration offset. |
+| `table5_budget.py` | Recomputes the GUM uncertainty budget from that offset. |
+| `audit_numbers.py` | Checks the built manuscript against these results for retired and required values. |
 | `make_fig_breach.py`, `make_fig_setup.py`, `make_fig_fridge.py` | Figures. |
 | `make_data_repo.py` | Assembles this repository from the working tree. |
 
@@ -40,6 +46,8 @@ python code/analyze_expA_kinetics.py
 python code/analyze_expA_detection.py
 python code/analyze_expA_thermal.py
 python code/energy_model.py
+python code/analyze_expC.py
+python code/table5_budget.py
 python code/make_fig_breach.py
 ```
 
@@ -82,6 +90,20 @@ of its pre-breach baseline while headspace CO₂ retained a 441 ppm excess over 
 no-breach expectation, at 7.5 σ. A log-linear fit across the 11.0–21.3 °C range
 the run sweeps gives Q₁₀ = 2.74 (95 % CI 2.15–3.48), recovered from the node's
 own temperature and CO₂ channels with no external reference.
+
+## Self-heating
+
+Both runs give a node–reference difference of +0.60 °C at the instant of
+power-on, when the sensing element is still at air temperature, although the
+room differed by 0.7 °C between them; that agreement is what justifies reading
+the power-on sample as the calibration offset. The difference settles to
++2.02 °C and +1.81 °C, so the self-heating offset is **+1.32 ± 0.12 °C**, and
+the decay gives the still-air thermal time constant as 4.3 and 4.7 min
+(R² = 0.989 in both). Carried into the budget this is the largest single term
+in the temperature uncertainty, larger than the sensor specification itself.
+
+All of these measurements were made on the populated board, with the printed
+enclosure not fitted. The photographs in `docs/photos/` show the configuration.
 
 ## Licence
 
