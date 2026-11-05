@@ -1,119 +1,137 @@
-"""Energy model for the node, and the resolution of the Table 9 inconsistency.
+"""Mean current and endurance, from a logged ammeter trace at the cell.
 
-Table 9 of the initial submission reports a measured weighted average of
-11.6 mA (43 mW) over a 10 min cycle, and separately a duty column of 99.4 %
-deep sleep at 7 uA, 0.5 % active sensing at 38 mA and 0.1 % display refresh at
-22 mA. Those two statements are not compatible: the duty column implies about
-0.22 mA. The measured average and the reported endurance on a 2600 mAh cell do
-agree with each other, so the duty column is the item in error.
+Inputs come from results/current_log.json, which analyze_current_log.py
+produces from the logging multimeter placed in series with the battery. Two
+quantities are taken from it and nothing is assumed:
 
-Taking the measured average and the active windows as given, this script solves
-for the current drawn between samples. The result is about 11.5 mA, three
-orders of magnitude above the 7 uA deep-sleep figure, which means the node does
-not deep-sleep between samples: the radio and board peripherals stay powered.
+    i_idle      current between acquisitions
+    q_active    charge drawn per acquisition, integrated over the window,
+                together with the window's duration
 
-It then tabulates mean current and endurance against sampling interval for the
-measured always-on regime and for a gated regime in which the node does reach
-the measured 7 uA sleep state between samples.
+so that for a sampling interval I,
+
+    I_mean = (q_active + i_idle * (I - t_active)) / I + i_leak
+
+with i_leak the cell self-discharge, taken as 2.5 % per month.
+
+This supersedes two earlier accounts. The initial submission measured per-mode
+currents with a USB meter in the charging lead and tabulated them as cell
+currents, which they are not. The first correction measured the levels at the
+cell but timed the windows by eye, and the eye was wrong by an order of
+magnitude: the acquisition window is not one or two seconds but about
+eighteen. Only the logged trace settles it, and the conclusion it supports is
+the opposite of the one the eye suggested.
 
 Writes results/energy_model.json.
 """
 import json
 import os
+import sys
 
-OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                   'results')
+BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(BASE, 'results')
+LOG = os.path.join(OUT, 'current_log.json')
 
-V_BATT = 3.7           # V, nominal cell voltage
-CAP_MAH = 2600.0       # 18650 cell, nominal capacity at 20 C
+CELL_MAH = 2600.0
+CELL_V = 3.7
+I_LEAK_MA = 0.025 * CELL_MAH / (30.0 * 24.0)
+I_DEEP_SLEEP_MA = 0.007          # datasheet figure for the part
 
-I_ACT_MA = 38.0        # measured, active sensing (I2C + CPU)
-T_ACT_S = 3.0          # per cycle, from the 0.5 % duty of a 10 min cycle
-I_DISP_MA = 22.0       # measured, e-paper refresh
-T_DISP_S = 0.6         # per cycle, from the 0.1 % duty of a 10 min cycle
-I_SLEEP_MA = 0.007     # measured board deep-sleep current, includes regulator
-
-I_MEAN_MEASURED_MA = 11.6     # measured weighted average over a 10 min cycle
-I_REF_S = 600.0               # the cycle that average was measured over
-
-# 18650 self-discharge, 2.5 % per month, expressed as a continuous current
-I_LEAK_MA = 0.025 * CAP_MAH / (30.0 * 24.0)
-
-INTERVALS_MIN = [5, 10, 15, 30, 60]
+INTERVALS_MIN = [1, 5, 10, 15, 30, 60]
+SHORT_WINDOW_S = 3.0             # what a partial-refresh acquisition might cost
 
 
-def idle_current_from_measurement():
-    """Solve the measured 10 min cycle for the current drawn between samples."""
-    charge = I_MEAN_MEASURED_MA * I_REF_S          # mA s
-    charge -= I_ACT_MA * T_ACT_S
-    charge -= I_DISP_MA * T_DISP_S
-    return charge / (I_REF_S - T_ACT_S - T_DISP_S)
+def mean_current(interval_s, q_active_mAs, t_active_s, i_idle_mA):
+    if interval_s <= t_active_s:
+        return float('nan')
+    return ((q_active_mAs + i_idle_mA * (interval_s - t_active_s)) / interval_s
+            + I_LEAK_MA)
 
 
-def mean_current(interval_s, i_idle_ma, i_leak_ma):
-    idle_s = interval_s - T_ACT_S - T_DISP_S
-    charge = I_ACT_MA * T_ACT_S + I_DISP_MA * T_DISP_S + i_idle_ma * idle_s
-    return charge / interval_s + i_leak_ma
+def days(ma):
+    return CELL_MAH / ma / 24.0
 
 
 def main():
-    i_idle = idle_current_from_measurement()
-    implied_by_duty = (I_ACT_MA * T_ACT_S + I_DISP_MA * T_DISP_S
-                       + I_SLEEP_MA * (I_REF_S - T_ACT_S - T_DISP_S)) / I_REF_S
+    if not os.path.exists(LOG):
+        raise SystemExit('run code/analyze_current_log.py first')
+    with open(LOG) as fh:
+        logs = json.load(fh)
+    c = next((l['cycles'] for l in logs if l.get('cycles')), None)
+    if c is None:
+        raise SystemExit('no clean cycles found in the ammeter log')
 
+    i_idle = c['idle_mA']
+    q_act = c['q_active_mAs']
+    t_act = c['active_s']
+
+    print('from the logged trace, %d clean cycles of %.0f s:'
+          % (c['n'], c['period_s']))
+    print('   idle            %.3f mA' % i_idle)
+    print('   acquisition     %.1f +/- %.1f s, %.0f +/- %.0f mA*s per cycle'
+          % (t_act, c['active_s_sd'], q_act, c['q_active_sd']))
+    print('   as logged       %.2f mA, %.1f days'
+          % (c['measured_mean_mA'], c['measured_days']))
+    print('   self-discharge carried as %.3f mA' % I_LEAK_MA)
+    print('')
+
+    scenarios = [
+        ('as built', q_act, t_act, i_idle),
+        ('shorter acquisition', q_act * SHORT_WINDOW_S / t_act,
+         SHORT_WINDOW_S, i_idle),
+        ('shorter + deep sleep', q_act * SHORT_WINDOW_S / t_act,
+         SHORT_WINDOW_S, I_DEEP_SLEEP_MA),
+    ]
+
+    print('%-8s' % 'interval', end='')
+    for name, _, _, _ in scenarios:
+        print('%24s' % name, end='')
+    print('')
     rows = []
-    for mins in INTERVALS_MIN:
-        s = mins * 60.0
-        a = mean_current(s, i_idle, 0.0)             # measured regime
-        b = mean_current(s, I_SLEEP_MA, I_LEAK_MA)   # gated regime
-        rows.append({'interval_min': mins,
-                     'measured_regime_mA': a,
-                     'measured_regime_h': CAP_MAH / a,
-                     'measured_regime_d': CAP_MAH / a / 24.0,
-                     'gated_regime_mA': b,
-                     'gated_regime_h': CAP_MAH / b,
-                     'gated_regime_d': CAP_MAH / b / 24.0})
+    for m in INTERVALS_MIN:
+        s = m * 60.0
+        row = {'interval_min': m}
+        print('%-8s' % ('%d min' % m), end='')
+        for name, q, t, i in scenarios:
+            v = mean_current(s, q, t, i)
+            row[name] = {'mean_mA': v, 'days': days(v)}
+            print('%14s %9s' % ('%.2f mA' % v, '%.1f d' % days(v)), end='')
+        print('')
+        rows.append(row)
 
-    res = {'cell_mAh': CAP_MAH, 'cell_Wh': CAP_MAH * V_BATT / 1000.0,
-           'i_active_mA': I_ACT_MA, 't_active_s': T_ACT_S,
-           'i_display_mA': I_DISP_MA, 't_display_s': T_DISP_S,
-           'i_sleep_mA': I_SLEEP_MA, 'i_leak_mA': I_LEAK_MA,
-           'i_mean_measured_mA': I_MEAN_MEASURED_MA,
-           'implied_by_duty_column_mA': implied_by_duty,
-           'inconsistency_factor': I_MEAN_MEASURED_MA / implied_by_duty,
-           'idle_current_solved_mA': i_idle,
-           'idle_vs_sleep_ratio': i_idle / I_SLEEP_MA,
+    base10 = next(r for r in rows if r['interval_min'] == 10)
+    share_act = q_act / 600.0 / base10['as built']['mean_mA']
+    print('')
+    print('At ten-minute sampling the acquisition window accounts for %.0f %% of'
+          % (100 * share_act))
+    print('the mean current and the idle state for %.0f %%. The lever is the'
+          % (100 * i_idle * (600 - t_act) / 600.0
+             / base10['as built']['mean_mA']))
+    print('window, not the idle current: shortening it to %.0f s would take'
+          % SHORT_WINDOW_S)
+    print('endurance from %.0f to %.0f days, and only then is deep sleep worth'
+          % (base10['as built']['days'], base10['shorter acquisition']['days']))
+    print('the effort, taking it to %.0f days.'
+          % base10['shorter + deep sleep']['days'])
+
+    res = {'source': 'results/current_log.json',
+           'i_idle_mA': i_idle, 'q_active_mAs': q_act, 't_active_s': t_act,
+           'q_active_sd': c['q_active_sd'], 't_active_sd': c['active_s_sd'],
+           'n_cycles': c['n'], 'logged_period_s': c['period_s'],
+           'logged_mean_mA': c['measured_mean_mA'],
+           'logged_days': c['measured_days'],
+           'i_leak_mA': I_LEAK_MA, 'i_deep_sleep_mA': I_DEEP_SLEEP_MA,
+           'short_window_s': SHORT_WINDOW_S,
+           'cell_mAh': CELL_MAH, 'cell_Wh': CELL_MAH * CELL_V / 1000.0,
+           'acquisition_share_at_10min': share_act,
            'rows': rows}
-
     os.makedirs(OUT, exist_ok=True)
     with open(os.path.join(OUT, 'energy_model.json'), 'w') as fh:
         json.dump(res, fh, indent=2)
-
-    print('cell %.0f mAh (%.2f Wh) at %.1f V' % (CAP_MAH, res['cell_Wh'], V_BATT))
     print('')
-    print('Table 9 as published is internally inconsistent:')
-    print('   duty column implies        %.3f mA' % implied_by_duty)
-    print('   measured weighted average  %.3f mA' % I_MEAN_MEASURED_MA)
-    print('   factor                     %.0fx' % res['inconsistency_factor'])
-    print('')
-    print('Solving the measured cycle for the current between samples:')
-    print('   i_idle = %.2f mA, which is %.0fx the measured 7 uA sleep current'
-          % (i_idle, res['idle_vs_sleep_ratio']))
-    print('   -> the node does not deep-sleep between samples')
-    print('')
-    print('%-10s %12s %10s %12s %12s'
-          % ('interval', 'measured', 'endurance', 'gated', 'endurance'))
-    print('%-10s %12s %10s %12s %12s'
-          % ('(min)', '(mA)', '(d)', '(mA)', '(d)'))
-    for r in rows:
-        print('%-10d %12.2f %10.1f %12.3f %12.0f'
-              % (r['interval_min'], r['measured_regime_mA'],
-                 r['measured_regime_d'], r['gated_regime_mA'],
-                 r['gated_regime_d']))
-    print('')
-    print('leak term used in the gated regime: %.3f mA (2.5 %%/month self-discharge)'
-          % I_LEAK_MA)
+    print('written: ' + os.path.join(OUT, 'energy_model.json'))
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

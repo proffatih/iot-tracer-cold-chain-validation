@@ -36,6 +36,16 @@ RETIRED = [
     ('8.50 %', 'U_comp(RH) without u_B3'),
     ('three hours', 'breach excursion lasted 45 min'),
     ('repeated three times', 'the step test was a single transition'),
+    ('11.46', 'idle current solved from a USB-side mean, disproved at the cell'),
+    ('0.219 mA', 'mean implied by the withdrawn duty column'),
+    ('factor of 53', 'the inconsistency as framed before the cell-side measurement'),
+    ('11.74', 'Table 9a mean current built on the withdrawn idle figure'),
+    ('5.52 mA', 'mean at one-minute sampling from the eyeballed durations'),
+    ('50.9 days', 'endurance from the eyeballed durations'),
+    ('1.66 mA', 'handheld idle reading, superseded by the logged 1.64 mA'),
+    ('103 mA', 'display level from the handheld reading'),
+    ('150 mA', 'peak from the handheld reading, logged peak is 162 mA'),
+    ('62 days', 'idle-only ceiling from the eyeballed model'),
 ]
 
 REQUIRED = [
@@ -50,6 +60,13 @@ REQUIRED = [
     ('+1126', 'phase B accumulation slope'),
     ('2.74', 'Q10'),
     ('441', 'persistent CO2 excess'),
+    ('1.64 mA', 'idle current from the logged trace'),
+    ('17.8', 'acquisition window, seconds'),
+    ('1989', 'charge per acquisition, mA.s'),
+    ('111 mA', 'mean current during the acquisition window'),
+    ('4.99 mA', 'mean at ten-minute sampling'),
+    ('35.1 mA', 'mean at the 59 s period logged'),
+    ('3.2 days', 'endurance at one-minute sampling'),
 ]
 
 
@@ -83,6 +100,18 @@ def check_results_agree():
     if abs(c['self_heating_C'] - 1.316) > 0.005:
         bad.append('self-heating in results is %.3f, audit expects 1.316'
                    % c['self_heating_C'])
+    em = os.path.join(RESULTS, 'energy_model.json')
+    if os.path.exists(em):
+        e = json.load(open(em))
+        if abs(e['t_active_s'] - 17.8) > 0.1:
+            bad.append('acquisition window in results is %.1f s, audit expects 17.8'
+                       % e['t_active_s'])
+        ten = next(r for r in e['rows'] if r['interval_min'] == 10)
+        if abs(ten['as built']['mean_mA'] - 4.99) > 0.01:
+            bad.append('10-min mean in results is %.2f mA, audit expects 4.99'
+                       % ten['as built']['mean_mA'])
+    else:
+        bad.append('results/energy_model.json is missing')
     return bad
 
 

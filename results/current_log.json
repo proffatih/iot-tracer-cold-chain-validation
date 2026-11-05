@@ -1,0 +1,398 @@
+[
+  {
+    "file": "BDM_20261105_084817682.csv",
+    "start": "2026-05-11 08:35:21",
+    "stop": "08:48:17",
+    "n": 1308,
+    "rate_hz": 1.684278350515464,
+    "idle_mA": 1.6648318584070796,
+    "cycles": {
+      "n": 4,
+      "idle_mA": 1.6383804434304434,
+      "active_s": 17.75,
+      "active_s_sd": 1.2583057392117916,
+      "q_active_mAs": 1988.7337499999999,
+      "q_active_sd": 133.79965983856866,
+      "period_s": 58.75,
+      "measured_mean_mA": 35.08444540638455,
+      "measured_days": 3.087788108904215,
+      "projection": [
+        {
+          "interval_min": 1,
+          "mean_mA": 34.38953317336004,
+          "days": 3.1501833068572758
+        },
+        {
+          "interval_min": 5,
+          "mean_mA": 8.260833211638587,
+          "days": 13.114092798860026
+        },
+        {
+          "interval_min": 10,
+          "mean_mA": 4.994745716423403,
+          "days": 21.689459180498137
+        },
+        {
+          "interval_min": 15,
+          "mean_mA": 3.9060498846850096,
+          "days": 27.73475417149454
+        },
+        {
+          "interval_min": 30,
+          "mean_mA": 2.817354052946615,
+          "days": 38.4521545029208
+        },
+        {
+          "interval_min": 60,
+          "mean_mA": 2.2730061370774184,
+          "days": 47.6608186692474
+        }
+      ]
+    },
+    "runs": [
+      {
+        "start": "08:35:21",
+        "state": "idle",
+        "dur_s": 47.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:36:09",
+        "state": "active",
+        "dur_s": 0.0,
+        "mean_mA": 16.07,
+        "max_mA": 16.07
+      },
+      {
+        "start": "08:36:09",
+        "state": "idle",
+        "dur_s": 3.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:36:13",
+        "state": "active",
+        "dur_s": 0.0,
+        "mean_mA": 32.6,
+        "max_mA": 32.6
+      },
+      {
+        "start": "08:36:14",
+        "state": "idle",
+        "dur_s": 8.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:36:23",
+        "state": "active",
+        "dur_s": 0.0,
+        "mean_mA": 19.425,
+        "max_mA": 19.94
+      },
+      {
+        "start": "08:36:24",
+        "state": "idle",
+        "dur_s": 3.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:36:28",
+        "state": "active",
+        "dur_s": 2.0,
+        "mean_mA": 44.3675,
+        "max_mA": 44.9
+      },
+      {
+        "start": "08:36:30",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:36:31",
+        "state": "active",
+        "dur_s": 1.0,
+        "mean_mA": 133.5,
+        "max_mA": 150.8
+      },
+      {
+        "start": "08:36:33",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 6.85,
+        "max_mA": 6.85
+      },
+      {
+        "start": "08:36:33",
+        "state": "active",
+        "dur_s": 3.0,
+        "mean_mA": 43.024,
+        "max_mA": 45.8
+      },
+      {
+        "start": "08:36:36",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:36:37",
+        "state": "active",
+        "dur_s": 104.0,
+        "mean_mA": 114.00621118012423,
+        "max_mA": 157.3
+      },
+      {
+        "start": "08:38:22",
+        "state": "idle",
+        "dur_s": 22.0,
+        "mean_mA": 1.7970731707317071,
+        "max_mA": 8.47
+      },
+      {
+        "start": "08:38:44",
+        "state": "active",
+        "dur_s": 19.0,
+        "mean_mA": 111.04206896551723,
+        "max_mA": 155.9
+      },
+      {
+        "start": "08:39:04",
+        "state": "idle",
+        "dur_s": 40.0,
+        "mean_mA": 1.646,
+        "max_mA": 1.68
+      },
+      {
+        "start": "08:39:45",
+        "state": "active",
+        "dur_s": 18.0,
+        "mean_mA": 111.72793103448276,
+        "max_mA": 153.9
+      },
+      {
+        "start": "08:40:04",
+        "state": "idle",
+        "dur_s": 40.0,
+        "mean_mA": 1.636081081081081,
+        "max_mA": 1.67
+      },
+      {
+        "start": "08:40:45",
+        "state": "active",
+        "dur_s": 19.0,
+        "mean_mA": 108.57733333333334,
+        "max_mA": 155.0
+      },
+      {
+        "start": "08:41:04",
+        "state": "idle",
+        "dur_s": 40.0,
+        "mean_mA": 1.6465753424657532,
+        "max_mA": 1.68
+      },
+      {
+        "start": "08:41:45",
+        "state": "active",
+        "dur_s": 73.0,
+        "mean_mA": 115.91315789473684,
+        "max_mA": 184.3
+      },
+      {
+        "start": "08:42:59",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 6.17,
+        "max_mA": 6.17
+      },
+      {
+        "start": "08:42:59",
+        "state": "active",
+        "dur_s": 16.0,
+        "mean_mA": 111.2675,
+        "max_mA": 163.5
+      },
+      {
+        "start": "08:43:16",
+        "state": "idle",
+        "dur_s": 42.0,
+        "mean_mA": 1.6354666666666666,
+        "max_mA": 1.67
+      },
+      {
+        "start": "08:43:58",
+        "state": "active",
+        "dur_s": 16.0,
+        "mean_mA": 112.406,
+        "max_mA": 161.7
+      },
+      {
+        "start": "08:44:15",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 6.5,
+        "max_mA": 6.5
+      },
+      {
+        "start": "08:44:16",
+        "state": "active",
+        "dur_s": 15.0,
+        "mean_mA": 110.772,
+        "max_mA": 154.2
+      },
+      {
+        "start": "08:44:32",
+        "state": "idle",
+        "dur_s": 42.0,
+        "mean_mA": 1.6359740259740259,
+        "max_mA": 1.66
+      },
+      {
+        "start": "08:45:15",
+        "state": "active",
+        "dur_s": 18.0,
+        "mean_mA": 111.82620689655172,
+        "max_mA": 155.5
+      },
+      {
+        "start": "08:45:34",
+        "state": "idle",
+        "dur_s": 41.0,
+        "mean_mA": 1.633611111111111,
+        "max_mA": 1.67
+      },
+      {
+        "start": "08:46:15",
+        "state": "active",
+        "dur_s": 0.0,
+        "mean_mA": 44.36,
+        "max_mA": 44.36
+      },
+      {
+        "start": "08:46:16",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:46:16",
+        "state": "active",
+        "dur_s": 18.0,
+        "mean_mA": 112.43793103448276,
+        "max_mA": 158.4
+      },
+      {
+        "start": "08:46:35",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 5.93,
+        "max_mA": 5.93
+      },
+      {
+        "start": "08:46:36",
+        "state": "active",
+        "dur_s": 14.0,
+        "mean_mA": 108.2,
+        "max_mA": 151.7
+      },
+      {
+        "start": "08:46:50",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:46:51",
+        "state": "active",
+        "dur_s": 1.0,
+        "mean_mA": 40.76,
+        "max_mA": 40.76
+      },
+      {
+        "start": "08:46:53",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:46:53",
+        "state": "active",
+        "dur_s": 1.0,
+        "mean_mA": 88.19999999999999,
+        "max_mA": 88.8
+      },
+      {
+        "start": "08:46:55",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:46:56",
+        "state": "active",
+        "dur_s": 0.0,
+        "mean_mA": 40.69,
+        "max_mA": 40.69
+      },
+      {
+        "start": "08:46:57",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:46:57",
+        "state": "active",
+        "dur_s": 14.0,
+        "mean_mA": 116.39999999999999,
+        "max_mA": 155.7
+      },
+      {
+        "start": "08:47:12",
+        "state": "idle",
+        "dur_s": 42.0,
+        "mean_mA": 1.7433333333333332,
+        "max_mA": 9.9
+      },
+      {
+        "start": "08:47:55",
+        "state": "active",
+        "dur_s": 0.0,
+        "mean_mA": 42.4775,
+        "max_mA": 50.73
+      },
+      {
+        "start": "08:47:56",
+        "state": "idle",
+        "dur_s": 0.0,
+        "mean_mA": 0.0,
+        "max_mA": 0.0
+      },
+      {
+        "start": "08:47:56",
+        "state": "active",
+        "dur_s": 18.0,
+        "mean_mA": 116.26756756756755,
+        "max_mA": 155.4
+      },
+      {
+        "start": "08:48:14",
+        "state": "idle",
+        "dur_s": 3.0,
+        "mean_mA": 1.6460000000000001,
+        "max_mA": 1.67
+      }
+    ]
+  }
+]

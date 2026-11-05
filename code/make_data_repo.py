@@ -22,6 +22,7 @@ DATA = [
     'data/EXP C cold_7CDFA1FE05B5.csv',
     'data/EXP C_7CDFA1FE05B5_t0_t1.csv',
     'data/reference_extech_sd800_2026-11-04.tsv',
+    'data/BDM_20261105_084817682.csv',
 ]
 CODE = [
     'code/pro_style.py',
@@ -33,6 +34,7 @@ CODE = [
     'code/analyze_expC.py',
     'code/table5_budget.py',
     'code/audit_numbers.py',
+    'code/analyze_current_log.py',
     'code/make_fig_breach.py',
     'code/make_fig_setup.py',
     'code/make_fig_fridge.py',
@@ -46,6 +48,7 @@ RESULTS = [
     'results/energy_model.json',
     'results/expC_selfheating.json',
     'results/table5_budget.json',
+    'results/current_log.json',
 ]
 FIGURES = [
     'figures/fig11_fridge_dynamics.pdf', 'figures/fig11_fridge_dynamics.png',
