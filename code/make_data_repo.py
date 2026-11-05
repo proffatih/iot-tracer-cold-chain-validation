@@ -55,6 +55,8 @@ FIGURES = [
     'figures/fig12a_breach_setup.pdf', 'figures/fig12a_breach_setup.png',
     'figures/fig12b_breach_timeseries.pdf', 'figures/fig12b_breach_timeseries.png',
     'figures/fig12c_breach_kinetics.pdf', 'figures/fig12c_breach_kinetics.png',
+    'figures/fig11_selfheating.pdf', 'figures/fig11_selfheating.png',
+    'figures/fig13d_breach_photos.pdf', 'figures/fig13d_breach_photos.png',
 ]
 DOCS = [('EXPA_RUN_LOG.md', 'docs/breach_trial_run_log.md')]
 PHOTOS = [

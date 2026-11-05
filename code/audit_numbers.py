@@ -75,6 +75,9 @@ REQUIRED = [
     ('3.2 days', 'endurance at one-minute sampling'),
     ('48 days', 'endurance at hourly sampling'),
     ('1.76 °C', 'U(T) application if the self-heating offset were corrected'),
+    ('27.68', 'node reading in the Fig. 11 photograph'),
+    ('5.78', 'difference in that photograph, against the logged peak of 5.8'),
+    ('1.65 L', 'headspace used in the analysis'),
 ]
 
 
