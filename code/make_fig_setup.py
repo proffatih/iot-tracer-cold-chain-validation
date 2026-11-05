@@ -5,7 +5,7 @@ predicted data appear here: the CO2 record itself is plotted separately once the
 trial has been run.
 """
 import sys, os
-sys.path.insert(0, 'D:/claude_ai/_templates')
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import pro_style
 pro_style.apply()
 
@@ -14,7 +14,8 @@ from matplotlib.patches import FancyBboxPatch, Rectangle, Circle
 
 C = pro_style.PALETTE
 BLUE, RED, GREEN, ORANGE, PURPLE, CYAN, GREY = C
-OUT = 'D:/claude_ai/IoT_Paper/R1/figures'
+OUT = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), 'figures')
 
 fig = plt.figure(figsize=(7.4, 3.5))
 gs = fig.add_gridspec(1, 2, width_ratios=[1.12, 1.0], wspace=0.40)

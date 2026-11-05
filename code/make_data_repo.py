@@ -11,7 +11,11 @@ import shutil
 import sys
 
 SRC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DEST = sys.argv[1] if len(sys.argv) > 1 else r'D:/iot-tracer-cold-chain-validation'
+# No default: the destination belongs to whoever runs this, not to
+# the machine it was written on.
+if len(sys.argv) < 2:
+    raise SystemExit('usage: python code/make_data_repo.py <destination>')
+DEST = sys.argv[1]
 
 DATA = [
     'data/node_7CDFA1FE05B5_breach_2026-11-03.csv',

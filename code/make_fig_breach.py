@@ -18,7 +18,6 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.path.append('D:/claude_ai/_templates')
 import pro_style
 pro_style.apply()
 
