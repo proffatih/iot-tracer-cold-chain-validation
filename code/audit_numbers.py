@@ -46,6 +46,12 @@ RETIRED = [
     ('103 mA', 'display level from the handheld reading'),
     ('150 mA', 'peak from the handheld reading, logged peak is 162 mA'),
     ('62 days', 'idle-only ceiling from the eyeballed model'),
+    # pre-self-heating uncertainties that survived in the abstract and in
+    # Table 10 because an earlier draft rounded them differently from the
+    # table; the first audit list missed them for exactly that reason.
+    ('0.94 °C', 'U(T) validation, abstract rounding, without u_B3'),
+    ('1.74 °C', 'U(T) application, abstract rounding, without u_B3'),
+    ('0.94 vs', 'Table 10 built on the pre-self-heating uncertainty'),
 ]
 
 REQUIRED = [
@@ -67,6 +73,8 @@ REQUIRED = [
     ('4.99 mA', 'mean at ten-minute sampling'),
     ('35.1 mA', 'mean at the 59 s period logged'),
     ('3.2 days', 'endurance at one-minute sampling'),
+    ('48 days', 'endurance at hourly sampling'),
+    ('1.76 °C', 'U(T) application if the self-heating offset were corrected'),
 ]
 
 
